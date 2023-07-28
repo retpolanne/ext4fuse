@@ -75,6 +75,16 @@ function e4test_fuse_mount {
     fi
 }
 
+function e4test_fuse_mount_defer_permissions {
+    mkdir $MOUNTPOINT
+    if [ -z "$LOGFILE" ]
+    then
+        ./ext4fuse $FS $MOUNTPOINT -o allow_other,defer_permissions
+    else
+        ./ext4fuse $FS $MOUNTPOINT -o logfile=$LOGFILE,allow_other,defer_permissions
+    fi
+}
+
 function e4test_fuse_mount_callgrind {
     mkdir $MOUNTPOINT
     if [ -z "$LOGFILE" ]
