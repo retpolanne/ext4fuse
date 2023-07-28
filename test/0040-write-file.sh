@@ -24,7 +24,8 @@ e4test_fuse_mount_defer_permissions
 
 # Copy the file to the FS
 
-touch $MOUNTPOINT/`basename $TMP_FILE`
+#cp $TMP_FILE $MOUNTPOINT/`basename $TMP_FILE`
+touch $MOUNTPOINT/test
 
 e4test_run t0040
 e4test_fuse_umount

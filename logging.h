@@ -32,7 +32,8 @@
     }                                                   \
 })
 #else
-#define DEFAULT_LOG_LEVEL LOG_ERR
+//#define DEFAULT_LOG_LEVEL LOG_ERR
+#define DEFAULT_LOG_LEVEL LOG_DEBUG
 #define ASSERT(assertion)       do { } while(0)
 #endif
 

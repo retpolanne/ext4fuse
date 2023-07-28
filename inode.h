@@ -24,6 +24,7 @@ void inode_dir_ctx_reset(struct inode_dir_ctx *ctx, struct ext4_inode *inode);
 struct ext4_dir_entry_2 *inode_dentry_get(struct ext4_inode *inode, off_t offset, struct inode_dir_ctx *ctx);
 
 int inode_get_by_number(uint32_t n, struct ext4_inode *inode);
+int create_file(const char *path);
 int inode_get_by_path(const char *path, struct ext4_inode *inode);
 uint32_t inode_get_idx_by_path(const char *path);
 

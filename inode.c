@@ -156,6 +156,11 @@ int inode_get_by_number(uint32_t n, struct ext4_inode *inode)
     return 0;
 }
 
+int create_file(const char *path)
+{
+    return disk_create(path);
+}
+
 static uint8_t get_path_token_len(const char *path)
 {
     uint8_t len = 0;

@@ -22,7 +22,7 @@ endif
 
 BINARY = ext4fuse
 SOURCES += fuse-main.o logging.o extents.o disk.o super.o inode.o dcache.o
-SOURCES += op_read.o op_readdir.o op_readlink.o op_init.o op_getattr.o op_open.o
+SOURCES += op_read.o op_readdir.o op_readlink.o op_write.o op_create.o op_init.o op_getattr.o op_open.o
 
 $(BINARY): $(SOURCES)
 	$(CC) -o $@ $^ $(LDFLAGS)

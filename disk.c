@@ -86,7 +86,17 @@ static int pread_wrapper(int disk_fd, void *p, size_t size, off_t where)
 
 int disk_open(const char *path)
 {
-    disk_fd = open(path, O_RDONLY);
+    disk_fd = open(path, O_RDWR);
+    if (disk_fd < 0) {
+        return -errno;
+    }
+
+    return 0;
+}
+
+int disk_create(const char *path)
+{
+    disk_fd = open(path, O_CREAT);
     if (disk_fd < 0) {
         return -errno;
     }
@@ -110,6 +120,24 @@ int __disk_read(off_t where, size_t size, void *p, const char *func, int line)
     ASSERT((size_t)pread_ret == size);
 
     return pread_ret;
+}
+
+int __disk_write(off_t where, size_t size, void *p, const char *func, int line)
+{
+    static pthread_mutex_t write_lock = PTHREAD_MUTEX_INITIALIZER;
+    ssize_t pwrite_ret;
+    
+    ASSERT(disk_fd >= 0);
+    pthread_mutex_lock(&write_lock);
+    DEBUG("Disk Write: 0x%jx +0x%zx [%s:%d]", where, size, func, line);
+    // TODO Tested on Mac only, that's why I didn't create a wrapper
+    pwrite_ret = pwrite(disk_fd, p, size, where);
+    pthread_mutex_unlock(&write_lock);
+    if (size == 0) WARNING("Write operation with 0 size");
+
+    ASSERT((size_t)pwrite_ret == size);
+
+    return pwrite_ret;
 }
 
 int disk_ctx_create(struct disk_ctx *ctx, off_t where, size_t size, uint32_t len)

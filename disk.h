@@ -7,6 +7,8 @@
 
 #define disk_read(__where, __s, __p)        __disk_read(__where, __s, __p, __func__, __LINE__)
 #define disk_read_block(__blocks, __p)      __disk_read(BLOCKS2BYTES(__blocks), BLOCK_SIZE, __p, __func__, __LINE__)
+#define disk_write(__where, __s, __p)        __disk_write(__where, __s, __p, __func__, __LINE__)
+#define disk_write_block(__blocks, __p)      __disk_write(BLOCKS2BYTES(__blocks), BLOCK_SIZE, __p, __func__, __LINE__)
 #define disk_ctx_read(__ctx, __s, __p)      __disk_ctx_read(__ctx, __s, __p, __func__, __LINE__)
 #define disk_read_type(__where, __t)        ({                                          \
     __t ret;                                                                            \
@@ -22,7 +24,9 @@ struct disk_ctx {
 };
 
 int disk_open(const char *path);
+int disk_create(const char *path);
 int __disk_read(off_t where, size_t size, void *p, const char *func, int line);
+int __disk_write(off_t where, size_t size, void *p, const char *func, int line);
 
 int disk_ctx_create(struct disk_ctx *ctx, off_t where, size_t size, uint32_t len);
 int __disk_ctx_read(struct disk_ctx *ctx, size_t size, void *p, const char *func, int line);
