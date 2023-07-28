@@ -20,16 +20,17 @@
 #include "ops.h"
 
 
-int op_create(const char *path, struct fuse_file_info *fi)
+int op_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 {
     struct ext4_inode inode;
     size_t ret = 0;
     uint32_t extent_len;
 
     DEBUG("create(%s, buf, fi->fh=%d)", path, fi->fh);
-    int fd = create_file(path);
+    int fd = create_file(path, mode);
+    DEBUG("create file %s fd %d", path, fd);
     if (fd < 0) {
-        return fd;
+        return -1;
     }
     return 0;
 }

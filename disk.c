@@ -86,7 +86,7 @@ static int pread_wrapper(int disk_fd, void *p, size_t size, off_t where)
 
 int disk_open(const char *path)
 {
-    disk_fd = open(path, O_RDWR);
+    disk_fd = open(path, O_RDONLY);
     if (disk_fd < 0) {
         return -errno;
     }
@@ -94,9 +94,10 @@ int disk_open(const char *path)
     return 0;
 }
 
-int disk_create(const char *path)
+int disk_create(const char *path, mode_t mode)
 {
-    disk_fd = open(path, O_CREAT);
+    DEBUG("Disk Create: %s mode %d", path, mode);
+    disk_fd = open(path, mode);
     if (disk_fd < 0) {
         return -errno;
     }

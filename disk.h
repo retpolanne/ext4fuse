@@ -24,7 +24,7 @@ struct disk_ctx {
 };
 
 int disk_open(const char *path);
-int disk_create(const char *path);
+int disk_create(const char *path, mode_t mode);
 int __disk_read(off_t where, size_t size, void *p, const char *func, int line);
 int __disk_write(off_t where, size_t size, void *p, const char *func, int line);
 
