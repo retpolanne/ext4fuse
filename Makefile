@@ -13,6 +13,10 @@ CFLAGS  += -mmacosx-version-min=10.5
 
 # fuse.pc pulls this flag in for me, but it seems that some old versions don't
 CFLAGS  += -D_FILE_OFFSET_BITS=64
+
+# if using fuse-t (https://github.com/macos-fuse-t/fuse-t/wiki)
+CFLAGS  += $(shell pkg-config fuse-t --cflags)
+LDFLAGS += $(shell pkg-config fuse-t --libs)
 endif
 
 ifeq ($(shell uname), FreeBSD)

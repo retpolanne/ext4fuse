@@ -1,7 +1,11 @@
 #ifndef OPS_H
 #define OPS_H
 
+#if __has_include(<fuse/fuse.h>)
+#include <fuse/fuse.h>
+#else
 #include <fuse.h>
+#endif
 
 void *op_init(struct fuse_conn_info *info);
 int op_readlink(const char *path, char *buf, size_t bufsize);

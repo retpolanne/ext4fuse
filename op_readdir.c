@@ -9,7 +9,11 @@
 
 
 #include <string.h>
+#if __has_include(<fuse/fuse.h>)
+#include <fuse/fuse.h>
+#else
 #include <fuse.h>
+#endif
 
 #include "common.h"
 #include "inode.h"

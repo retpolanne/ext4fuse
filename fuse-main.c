@@ -11,7 +11,11 @@
  */
 
 
+#if __has_include(<fuse/fuse.h>)
+#include <fuse/fuse.h>
+#else
 #include <fuse.h>
+#endif
 #include <fcntl.h>
 #include <errno.h>
 #include <stdio.h>
