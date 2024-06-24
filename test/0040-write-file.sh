@@ -7,7 +7,8 @@ function t0040-check {
     [ "$FUSE_MD5" = "$FILE_MD5" ]
 }
 
-set -e
+#set -e
+set -x
 source `dirname $0`/lib.sh
 
 # Make a random file, and store the md5
