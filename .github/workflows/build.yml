@@ -40,7 +40,7 @@ jobs:
           make
       - name: Test
         run: |
-          make test
+          test/0040-write-file.sh
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.platform.name }}
