@@ -1,0 +1,47 @@
+name: Build ext4fuse
+env:
+  GITHUB_TOKEN: ${{ github.token }}
+
+on:
+  push:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release - ${{ matrix.platform.release_for }}
+    strategy:
+      matrix:
+        platform:
+          - release_for: macOS-x86_64
+            os: macOS-latest
+            target: x86_64-apple-darwin
+            bin: ext4fuse
+            name: ext4fuse-Darwin-x86_64
+            command: both
+
+          - release_for: macOS-aarch64
+            os: macOS-latest-xlarge
+            target: aarch64-apple-darwin
+            bin: ext4fuse
+            name: ext4fuse-Darwin-aarch64
+            command: both
+
+    runs-on: ${{ matrix.platform.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install deps
+        run: |
+          brew bundle
+      - name: Build
+        run: |
+          make
+      - name: Test
+        run: |
+          make test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform.name }}
+          path: target/${{ matrix.platform.target }}/release/ext4fuse
