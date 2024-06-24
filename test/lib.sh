@@ -1,5 +1,7 @@
-MKE2FS=`which mke2fs || echo /sbin/mke2fs`
-DEBUGFS=`which debugfs || echo /sbin/debugfs`
+MKE2FS=`echo $(brew --prefix e2fsprogs)/sbin/mke2fs`
+DEBUGFS=`echo $(brew --prefix e2fsprogs)/sbin/debugfs`
+
+echo $MKE2FS
 
 # Default to ext4
 MKE2FS_TYPE=ext4
